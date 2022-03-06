@@ -1,0 +1,38 @@
+*.selectToClipboard: true
+
+! special
+*.foreground:   #ffffff
+*.background:   #25030a
+*.cursorColor:  #ffffff
+
+! black
+*.color0:       #ec3257
+*.color8:       #ebf9ff
+
+! red
+*.color1:       #ee4466
+*.color9:       #d7e3fe
+
+! green
+*.color2:       #ef5775
+*.color10:      #cde3fe
+
+! yellow
+*.color3:       #f16a85
+*.color11:      #afe7fe
+
+! blue
+*.color4:       #f37c94
+*.color12:      #9be1fd
+
+! magenta
+*.color5:       #f58fa3
+*.color13:      #86dcfd
+
+! cyan
+*.color6:       #f6a2b3
+*.color14:      #72d6fd
+
+! white
+*.color7:       #f7a8b8
+*.color15:      #55cdfc
