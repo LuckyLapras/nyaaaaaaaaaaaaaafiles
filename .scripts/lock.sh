@@ -26,3 +26,4 @@ xidlehook \
   --timer 300 \
     'systemctl suspend' \
     ''
+#e
