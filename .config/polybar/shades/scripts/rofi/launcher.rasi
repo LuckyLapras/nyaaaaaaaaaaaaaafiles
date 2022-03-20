@@ -113,7 +113,7 @@ element-text {
 
 element selected {
     background-color:               @bg4;
-    text-color:                     @bg;
+    text-color:                     inherit;
 	border:							0px;
     border-radius:                  0px;
     border-color:                  	@bg;
