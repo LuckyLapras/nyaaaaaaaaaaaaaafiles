@@ -40,12 +40,12 @@ while getopts ":qaws" option; do
            xclip -selection clip -t image/png $DIR/$FILENAME
            notify
            exit;;
-        a) #maim -s -u $DIR/$FILENAME
+        a) maim -s -r boxzoom -u $DIR/$FILENAME
             # we use maim -s without all the feh bullshit here bc the hypr
             # config doesn't handle feh how we want it to
             # feh also doesn't take focus when floating
             # there might be some hypr config i can fix that with but idk where to start
-           selection
+           #selection
            if [ -e $DIR/$FILENAME ]; then
                xclip -sel clip < /dev/null
                xclip -selection clip -t image/png $DIR/$FILENAME

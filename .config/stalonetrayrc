@@ -13,7 +13,7 @@
 
 # background <color>         # color can be specified as an HTML hex triplet or
                              # as a name from rgb.txt, note that '#' must be quoted
-background "#777777"
+background "#9913c3"
 
 # decorations <decspec>      # set trays window decorations; possible values for
                              # decspec are: all, title, border, none
@@ -24,7 +24,7 @@ decorations none
 # dockapp_mode <mode>        # set dockapp mode, which can be either simple (for
                              # e.g. OpenBox, wmaker for WindowMaker, or none
                              # (default). NEW in @VERSION_STR@.
-dockapp_mode none
+dockapp_mode simple
 
 # fuzzy_edges [<level>]      # enable fuzzy edges and set fuzziness level. level
                              # can be from 0 (disabled) to 3; this setting works
@@ -34,20 +34,20 @@ fuzzy_edges 0
 
 # geometry <geometry>        # tray's geometry in standard X notation; width and
                              # height are specified in slot_size multiples
-geometry 1x1+0+0
+geometry 2x1+0+0
 
 # grow_gravity <gravity>     # one of N, S, E, W, NW, NE, SW, SE; tray will grow
                              # in the direction opposite to one specified by
-							 # grow_gravity; if horizontal or vertical
-							 # direction is not specified, tray will not grow in
-							 # that direction
-grow_gravity NW
+                             # grow_gravity; if horizontal or vertical
+                             # direction is not specified, tray will not grow in
+                             # that direction
+grow_gravity E
 
 # icon_gravity <gravity>     # icon placement gravity, one of NW, NE, SW, SE
-icon_gravity NW
+icon_gravity NE
 
 # icon_size <int>            # specifies dimensions of typical icon slot
-icon_size 24
+icon_size 18
 
 # log_level <level>          # controls the amount of logging output, level can
                              # be err (default), info, or trace (enabled only
