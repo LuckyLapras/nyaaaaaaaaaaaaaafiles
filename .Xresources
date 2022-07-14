@@ -1,0 +1,42 @@
+*.selectToClipboard: true
+
+! special
+*.foreground:   #7b83b4
+*.background:   #181e34
+*.cursorColor:  #7b83b4
+*.alpha:        0.92
+
+! black
+*.color0:       #181e34
+*.color8:       #43487f
+
+! red
+*.color1:       #454f80
+*.color9:       #fe9dc6
+
+! green
+*.color2:       #ff80b5
+*.color10:      #344a7a
+
+! yellow
+*.color3:       #ffb3d2
+*.color11:      #3b3f6e
+
+! blue
+*.color4:       #87b3fc
+*.color12:      #51588c
+
+! magenta
+*.color5:       #fb6fa9
+*.color13:      #d0e8ff
+
+! cyan
+*.color6:       #a3cfff
+*.color14:      #f764a1
+
+! white
+*.color7:       #809dad
+*.color15:      #f8dfff
+
+st.font:        Cozette:style=Medium:size=8
+*.font:         xft:Cozette:size=8
