@@ -20,7 +20,6 @@ screenshot coming soon this is far from finished
 - wallpaper: from [muse dash](http://cdn.peroperogames.com/art#gallery_4-69) (also subject to change)
 - rofi themes: from [adi1090x's polybar themes](https://github.com/adi1090x/polybar-themes) (i used to use polybar)
 - font: [cozette](https://github.com/slavfox/Cozette) (once again, subject to change)
-- tray: [stalonetray](https://github.com/kolbusa/stalonetray)
 - dashboard: [eww](https://github.com/elkowar/eww)
 
 yeah.
