@@ -21,7 +21,13 @@ xset s off
 xrdb -merge ~/.Xresources
 setxkbmap gb
 case $1 in
-    i3)      exec i3 ;;
+    i3) firefox &     
+        exec i3 ;;
     hypr|Hypr)    exec Hypr ;;
     awesome) exec awesome ;;
+    gnome) export XDG_SESSION_TYPE=x11
+        GDK_BACKEND=x11
+        exec gnome-session
+        ;;
+    mutter) exec mutter ;;
 esac

@@ -23,11 +23,15 @@ selection() (
     wid="$(xdotool search --pid "$feh_pid")"
 
     # fullscreen feh and move top-left (works with multi-monitor)
-   #xdotool windowsize "$wid" 100% 100%
-   #xdotool windowmove "$wid" 0 0
+    xdotool windowsize "$wid" 100% 100%
+    xdotool windowmove "$wid" 0 0
 
     # take the new screenshot by selection, pipe to clipboard
-    maim -s -r boxzoom -u $DIR/$FILENAME
+    # we sleep for half a second before invoking maim otherwise awesome does
+    # some funky shit with opacity that doesn't really affect anything but
+    # i don't like it anyway. this isn't necessary in i3 or bspwm.
+    # maybe i should make some check for wm.
+    sleep 0.5 && maim -s -r boxzoom -u $DIR/$FILENAME
 
     # kill feh
     kill "$feh_pid"
@@ -59,6 +63,12 @@ while getopts ":qaws" option; do
            exit;;
         s) #exec escrotum -s -C
            selection
+           if [ -e $DIR/$FILENAME ]; then
+               xclip -sel clip < /dev/null
+               xclip -selection clip -t image/png $DIR/$FILENAME
+               notify
+           fi
+
            exit;;
     esac
 done

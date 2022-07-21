@@ -8,6 +8,6 @@ export EDITOR=vim
 
 if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]];
 then
-    startx ~/.xinitrc hypr
+    startx ~/.xinitrc awesome
     #Hyprland
 fi
