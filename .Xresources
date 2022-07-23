@@ -12,7 +12,7 @@
 
 ! red
 ! *.color1:       #454f80
-*.color1:       #d7e3fe
+*.color1:       #7586f5
 *.color9:       #fe9dc6
 
 ! green

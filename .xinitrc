@@ -18,13 +18,13 @@ fi
 xset -dpms
 xset s off
 
-xrdb -merge ~/.Xresources
+xrdb -merge $userresources
 setxkbmap gb
+
 case $1 in
-    i3) firefox &     
-        exec i3 ;;
+    i3) exec i3 ;;
     hypr|Hypr)    exec Hypr ;;
-    awesome) exec awesome ;;
+    awesome) exec awesome >/tmp/awesomelog 2>&1 ;;
     gnome) export XDG_SESSION_TYPE=x11
         GDK_BACKEND=x11
         exec gnome-session
