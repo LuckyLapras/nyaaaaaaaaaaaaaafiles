@@ -21,6 +21,9 @@ xset s off
 xrdb -merge $userresources
 setxkbmap gb
 
+# i miss my scroll wheel
+xinput set-prop 'PixArt USB Optical Mouse' 'libinput Scroll Method Enabled' 0 0 1
+
 case $1 in
     i3) exec i3 ;;
     hypr|Hypr)    exec Hypr ;;

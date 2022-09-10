@@ -11,9 +11,12 @@ local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
+-- i prefer to use dunst (for now) so i've commented out this variable line and replaced the instances
+-- of naughty in the error handling with the require function.
 -- local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+local treetile = require("treetile")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -64,6 +67,7 @@ scripts_dir = "$HOME/.scripts/"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
+    treetile,
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.floating,
     awful.layout.suit.tile,
@@ -227,12 +231,12 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 -- }}}
 
--- {{{ Mouse bindings
-root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
+-- {{{ Mouse bindings (i don't like these)
+--root.buttons(gears.table.join(
+--    awful.button({ }, 3, function () mymainmenu:toggle() end),
+--    awful.button({ }, 4, awful.tag.viewnext),
+--    awful.button({ }, 5, awful.tag.viewprev)
+--))
 -- }}}
 
 require("keys")
@@ -256,7 +260,7 @@ awful.rules.rules = {
                          return function(cr, w, h)
                              gears.shape.rounded_rect(cr, w, h, 15)
                          end
-                     end
+                     end,
      }
     },
 
@@ -279,24 +283,24 @@ awful.rules.rules = {
 
     -- commented out rules don't work bc of class bullshit
     -- i should probably just remove em but w/e
---  { rule = { class = "firefox" },
---    properties = { screen = root.tags()[6].screen, tag = root.tags()[6].name } },
---  { rule = { class = "Spotify" },
---    properties = { screen = root.tags()[2].screen, tag = root.tags()[2].name } },
---  { rule = { class = "sayonara" },
---    properties = { screen = root.tags()[3].screen, tag = root.tags()[3].name } },
---  { rule = { class = "photoshop.exe" },
---    properties = { screen = root.tags()[7].screen, tag = root.tags()[7].name } },
---  { rule = { class = "Steam" },
---    properties = { screen = root.tags()[9].screen, tag = root.tags()[9].name } },
---  { rule = { class = "REAPER" },
---    properties = { screen = root.tags()[8].screen, tag = root.tags()[8].name } },
---  { rule = { class = "discord" },
---    properties = { screen = root.tags()[1].screen, tag = root.tags()[1].name } },
+    { rule = { class = "firefox" },
+      properties = { screen = root.tags()[6].screen, tag = root.tags()[6].name } },
+    { rule = { class = "Spotify" },
+      properties = { screen = root.tags()[2].screen, tag = root.tags()[2].name } },
+    { rule = { class = "sayonara" },
+      properties = { screen = root.tags()[3].screen, tag = root.tags()[3].name } },
+    { rule = { class = "photoshop.exe" },
+      properties = { screen = root.tags()[7].screen, tag = root.tags()[7].name } },
+    { rule = { class = "Steam", class = "PCSX2" },
+      properties = { screen = root.tags()[9].screen, tag = root.tags()[9].name } },
+    { rule = { class = "REAPER" },
+      properties = { screen = root.tags()[8].screen, tag = root.tags()[8].name } },
+    { rule = { class = "discord" },
+      properties = { screen = root.tags()[1].screen, tag = root.tags()[1].name } },
     { rule = { class = "feh" },
       properties = { border_width = 0, floating = true } },
     { rule = { class = "MEGAsync" },
-      properties = { border_width = 0, x = 20, y = 20 } },
+      properties = { border_width = 0, x = 20, y = 20, shape = gears.shape.rect } },
 }
 -- }}}
 

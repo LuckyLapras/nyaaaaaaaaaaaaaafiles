@@ -20,6 +20,11 @@ client.connect_signal("manage", function (c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
+
+    -- this makes floating windows stay on top, i think.
+    if c.floating then
+        c.ontop = true
+    end
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
@@ -86,46 +91,50 @@ client.connect_signal("property::fullscreen", function(c)
     end
 end)
 
--- this signal replaces rules defining which workspaces things should start on.
--- originally this only applied to spotify bc spotify's a bitch baby but then i decided
--- to move all the rules here to expand upon the workspaces script
+-- this signal replaces spotify's rule bc spotify's a lil bitch baby
 client.connect_signal("property::class", function(c)
     if c.class == "Spotify" then
         tag = 2
         c:move_to_tag(root.tags()[tag])
-    elseif c.class == "firefox" then
-        tag = 6
-        c:move_to_tag(root.tags()[tag])
-    elseif c.class == "sayonara" then
-        tag = 3
-        c:move_to_tag(root.tags()[tag])
-    elseif c.class == "photoshop.exe" then
-        tag = 7
-        c:move_to_tag(root.tags()[tag])
-    elseif c.class == "Steam" then
-        tag = 9
-        c:move_to_tag(root.tags()[tag])
-    elseif c.class == "REAPER" then
-        tag = 8
-        c:move_to_tag(root.tags()[tag])
-    elseif c.class == "discord" then
-        tag = 1
-        c:move_to_tag(root.tags()[tag])
+-- i wanted to move all of the rules here and have them work like the spotify case above and use
+-- the spawn command below but that kinda broke after a restart and i've reverted back to regular
+-- rules. i realise while typing this that the other windows probably don't emit the property::class
+-- signal which may explain why it fell apart
+--  elseif c.class == "firefox" then
+--      tag = 6
+--      c:move_to_screen(root.tags()[tag].screen+1)
+--      c:move_to_tag(root.tags()[tag])
+--  elseif c.class == "sayonara" then
+--      tag = 3
+--      c:move_to_screen(root.tags()[tag].screen+1)
+--      c:move_to_tag(root.tags()[tag])
+--  elseif c.class == "photoshop.exe" then
+--      tag = 7
+--      c:move_to_screen(root.tags()[tag].screen+1)
+--      c:move_to_tag(root.tags()[tag])
+--  elseif c.class == "Steam" then
+--      tag = 9
+--      c:move_to_screen(root.tags()[tag].screen+1)
+--      c:move_to_tag(root.tags()[tag])
+--  elseif c.class == "REAPER" then
+--      tag = 8
+--      c:move_to_screen(root.tags()[tag].screen+1)
+--      c:move_to_tag(root.tags()[tag])
+--  elseif c.class == "discord" then
+--      tag = 1
+--      c:move_to_screen(1)
+--      c:move_to_tag(root.tags()[tag])
+--      awful.util.spawn_with_shell("dunstify cum")
     end
     -- i want to replace the c.class here with c.name, but sometimes c.name has spaces and that
     -- causes problems with passing arguments to the workspaces script
     -- i've tried several methods of concatenation and formatting and nothing's worked
     -- im tired and want to go to bed
-    awful.util.spawn_with_shell(scripts_dir .. "workspaces.sh new_win " .. c.class .. " " .. tag)
+--  awful.util.spawn_with_shell(scripts_dir .. "workspaces.sh new_win " .. c.class .. " " .. tag)
 end)
 
--- i want floating windows on top but firefox seems to be unable to become fullscreen
--- with this code uncommented. i've tried applying the if statement on fullscreen
--- windows and windows with class 'firefox' but neither seem to help
---client.connect_signal("property::floating", function(c)
---    if c.floating then
---        c.ontop = true
---    else
---        c.ontop = false
---    end
---end)
+-- switching to an empty tag on the second screen does not seem to mark it as active in
+-- wmctrl's output. i cannot find any way to remedy this.
+tag.connect_signal("property::selected", function()
+    awful.util.spawn_with_shell(scripts_dir .. "workspaces.sh")
+end)

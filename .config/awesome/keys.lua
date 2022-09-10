@@ -1,9 +1,9 @@
 local gears = require("gears")
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
+local treetile = require("treetile")
 
 modkey = "Mod4"
-
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
@@ -72,22 +72,22 @@ globalkeys = gears.table.join(
               {description = "quit awesome", group = "awesome"}),
 
     -- i exclusively use dwindle layout for now these binds mean nothing to me
-    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
-              {description = "increase master width factor", group = "layout"}),
-    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)          end,
-              {description = "decrease master width factor", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
-              {description = "increase the number of master clients", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1, nil, true) end,
-              {description = "decrease the number of master clients", group = "layout"}),
-    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1, nil, true)    end,
-              {description = "increase the number of columns", group = "layout"}),
-    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
-              {description = "decrease the number of columns", group = "layout"}),
-    awful.key({ modkey, "Control" }, "space", function () awful.layout.inc( 1)                end,
-              {description = "select next layout", group = "layout"}),
-    awful.key({ modkey, "Control", "Shift" }, "space", function () awful.layout.inc(-1)       end,
-              {description = "select previous layout", group = "layout"}),
+    --awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
+    --          {description = "increase master width factor", group = "layout"}),
+    --awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)          end,
+    --          {description = "decrease master width factor", group = "layout"}),
+    --awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
+    --          {description = "increase the number of master clients", group = "layout"}),
+    --awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1, nil, true) end,
+    --          {description = "decrease the number of master clients", group = "layout"}),
+    --awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1, nil, true)    end,
+    --          {description = "increase the number of columns", group = "layout"}),
+    --awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
+    --          {description = "decrease the number of columns", group = "layout"}),
+    --awful.key({ modkey, "Control" }, "space", function () awful.layout.inc( 1)                end,
+    --          {description = "select next layout", group = "layout"}),
+    --awful.key({ modkey, "Control", "Shift" }, "space", function () awful.layout.inc(-1)       end,
+    --          {description = "select previous layout", group = "layout"}),
     -- im sorry for ruining the uniformity of this section
 
     -- this one also means nothing to me having minimized windows in a no-bar environment
@@ -142,7 +142,6 @@ globalkeys = gears.table.join(
               {description = "take screenshot of current active window", group = "screenshots"}),
 
     -- media keys
-    -- the dunstify commands are simply placeholders for now
     awful.key({}, "XF86AudioRaiseVolume", function()
                   awful.util.spawn_with_shell(scripts_dir .. "volume.sh up")
               end,
@@ -158,7 +157,20 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift" }, "a", function()
                   awful.util.spawn_with_shell("pactl set-source-mute alsa_input.pci-0000_0a_00.3.analog-stereo toggle")
               end,
-              {description = "toggle line in mute", group = "audio"})
+              {description = "toggle line in mute", group = "audio"}),
+    -- i've realised accessing megasync without a systray is kinda cumbersome
+    -- maybe i can figure out some way of having a popup systray
+    -- but for now this'll work
+    awful.key({ modkey, "Shift" }, "s", function()
+                  awful.util.spawn("megasync")
+              end,
+              {description = "show megasync", group = "launcher"}),
+    -- resizing windows maybe
+    awful.key({ modkey, "Mod1" }, "Left", function () treetile.resize_client(-0.1) end),
+    awful.key({ modkey, "Mod1" }, "Right", function () treetile.resize_client(0.1) end),
+    -- i would like to figure out how to make clients equal again after resizing
+    -- but i am dumb
+    awful.key({ modkey, "Mod1" }, "equal", function () treetile.arrange() end)
 )
 
 clientkeys = gears.table.join(
@@ -219,7 +231,6 @@ for i = 1, 9 do
                 tag:view_only()
                 awful.screen.focus(screen)
             end
-            awful.util.spawn_with_shell("$HOME/.scripts/workspaces.sh")
         end,
         {description = "view tag #"..i, group = "tag"}),
         -- Toggle tag display.
@@ -266,7 +277,6 @@ globalkeys = gears.table.join(globalkeys,
             tag:view_only()
             awful.screen.focus(screen)
         end
-        awful.util.spawn_with_shell("$HOME/.scripts/workspaces.sh")
     end,
     {description = "view tag #0", group = "tag"}),
     -- Toggle tag display.
@@ -283,12 +293,10 @@ globalkeys = gears.table.join(globalkeys,
     awful.key({ modkey, "Shift" }, "0",
     function ()
         if client.focus then
-            --local tag = client.focus.screen.tags[10]
             local tag = root.tags()[10]
             local screen = tag.screen
             if tag then
                 client.focus:move_to_tag(tag)
-                --client.focus:move_to_screen(screen)
             end
         end
     end,
