@@ -166,8 +166,14 @@ globalkeys = gears.table.join(
               end,
               {description = "show megasync", group = "launcher"}),
     -- resizing windows maybe
-    awful.key({ modkey, "Mod1" }, "Left", function () treetile.resize_client(-0.1) end),
-    awful.key({ modkey, "Mod1" }, "Right", function () treetile.resize_client(0.1) end),
+    awful.key({ modkey, "Mod1" }, "Left", function () treetile.resize_horizontal(-0.01) end,
+              {description = "shrink horizontal client", group = "client"}),
+    awful.key({ modkey, "Mod1" }, "Right", function () treetile.resize_horizontal(0.01) end,
+              {description = "grow horizontal client", group = "client"}),
+    awful.key({ modkey, "Mod1" }, "Down", function () treetile.resize_vertical(-0.01) end,
+              {description = "shrink vertical client", group = "client"}),
+    awful.key({ modkey, "Mod1" }, "Up", function () treetile.resize_vertical(0.01) end,
+              {description = "grow vertical client", group = "client"}),
     -- i would like to figure out how to make clients equal again after resizing
     -- but i am dumb
     awful.key({ modkey, "Mod1" }, "equal", function () treetile.arrange() end)

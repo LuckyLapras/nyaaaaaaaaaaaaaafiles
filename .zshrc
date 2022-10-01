@@ -65,7 +65,12 @@ alias ld='ls -dlh .* --color=auto'
 
 alias 3dsntr='sudo create_ap wlp6s0 enp7s0 3DSNTR NozoEli6969'
 
-precmd () {printf '\033];%s\a' "${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $2 }')"}
+case $TERM in
+    st*)    precmd () {printf '\033];%s\a' "${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $2 }')"}
+        ;;
+    xterm*) precmd () {printf "\e]0;${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $2 }')"}
+        ;;
+esac
 
 setopt CORRECT
 

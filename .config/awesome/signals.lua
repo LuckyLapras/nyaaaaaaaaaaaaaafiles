@@ -22,8 +22,11 @@ client.connect_signal("manage", function (c)
     end
 
     -- this makes floating windows stay on top, i think.
-    if c.floating then
-        c.ontop = true
+    if c.class ~= "PCSX2" then
+        -- i need to specify not pcsx2 here bc the window is really annoying in tiling layouts
+        if c.floating then
+            c.ontop = true
+        end
     end
 end)
 

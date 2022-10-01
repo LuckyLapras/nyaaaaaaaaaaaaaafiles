@@ -54,7 +54,7 @@ beautiful.init("/home/lily/.config/awesome/theme.lua")
 
 
 -- This is used later as the default terminal and editor to run.
-terminal = "st"
+terminal = "alacritty"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 scripts_dir = "$HOME/.scripts/"
@@ -311,7 +311,7 @@ require("signals")
 -- about a minute when hovering over the desktop á la "--no-startup-id"-less execs
 -- in i3 config
 autorun = true
-autorunApps = { "picom --experimental-backends -b",
+autorunApps = { "picom -b",
                 "fcitx5 &",
                 "discord-canary &",
                 "kdeconnect-cli",

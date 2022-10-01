@@ -1,0 +1,76 @@
+env:
+  TERM: xterm-256color
+window:
+  padding:
+    x: 3
+    y: 3
+  dynamic_padding: true
+  dynamic_title: true
+  class:
+    instance: Alacritty
+    general: Alacritty
+  opacity: 0.9
+scrolling:
+  history: 5000
+  multiplier: 3
+  auto_scroll: false
+font:
+  normal:
+    family: "MesloLGS NF"
+    style: Medium
+  bold:
+    family: "MesloLGS NF"
+    style: Bold
+  italic:
+    family: "MesloLGS NF"
+    style: Italic
+  bold_italic:
+    family: "MesloLGS NF"
+    style: Bold Italic
+  size: 9
+  offset:
+    x: 0
+    y: 0
+draw_bold_text_with_bright_colors: true
+# shell:
+#   program: ADD YOUR SHELL
+key_bindings:
+  - { key: V, mods: Control|Shift, action: Paste }
+  - { key: C, mods: Control|Shift, action: Copy }
+  - { key: Insert, mods: Shift, action: PasteSelection }
+  - { key: Paste, mods: None, action: Paste }
+  - { key: Copy, mods: None, action: Copy }
+  - { key: L, mods: Control, action: ClearLogNotice }
+  - { key: L, mods: Control, chars: "\f" }
+  - { key: V, mods: Alt, action: ToggleViMode }
+  - { key: PageUp, mods: Alt, action: ScrollHalfPageUp, mode: ~Alt }
+  - { key: PageDown, mods: Alt, action: ScrollHalfPageDown, mode: ~Alt }
+import:
+- /home/lily/.config/alacritty/gelacritty.yml
+colors:
+  # Default colors
+  primary:
+    background: '0x181e34'
+    foreground: '0x7b83b4'
+
+  # Normal colors
+  normal:
+    black:   '0x181e34'
+    red:     '0x7586f5'
+    green:   '0xff80b5'
+    yellow:  '0xffb3d2'
+    blue:    '0x87b3fc'
+    magenta: '0xfb6fa9'
+    cyan:    '0xa3cfff'
+    white:   '0x809dad'
+
+  # Bright colors
+  bright:
+    black:   '0x43487f'
+    red:     '0xfe9dc6'
+    green:   '0x344a7a'
+    yellow:  '0x3b3f6e'
+    blue:    '0x51588c'
+    magenta: '0xd0e8ff'
+    cyan:    '0xf764a1'
+    white:   '0xf8dfff'
