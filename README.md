@@ -9,7 +9,7 @@ screenshot coming soon this is far from finished
 - distro: [arch](https://archlinux.org)
 - wm: [awesome](https://awesome.org) (i didn't like the way hypr handles workspaces)
   - awesome layout: [alfunx's treetile](https://github.com/alfunx/awesome-treetile)
-- compositor: [picom](https://github.com/yshui/picom)
+- compositor: [FT-Labs' picom fork](https://github.com/FT-Labs/picom)
 - terminal: [alacritty](https://github.com/alacritty/alacritty)
   - colour scheme: a slightly modified version of [Base2Tone-iterm2-SuburbDark](https://github.com/atelierbram/Base2Tone-iterm2)
 - shell: [zsh](https://www.zsh.org)
@@ -21,6 +21,6 @@ screenshot coming soon this is far from finished
 - wallpaper: from [muse dash](http://cdn.peroperogames.com/art#gallery_4-69) (also subject to change)
 - rofi themes: from [adi1090x's polybar themes](https://github.com/adi1090x/polybar-themes) (i used to use polybar)
 - font: [MesloLGS NF](https://github.com/romkatv/powerlevel10k#fonts)
-- dashboard: unless eww adds keyboard input, awesome widgets. may simplify this a lot tho and stick with rofi.
+- dashboard: [AlecsFerra's eww fork](https://github.com/AlecsFerra/eww) (may try my hand at porting these changes to a more recent version of eww)
 
 yeah.

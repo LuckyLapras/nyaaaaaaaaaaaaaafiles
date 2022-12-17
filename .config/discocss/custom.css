@@ -37,20 +37,14 @@ div.container-2o3qEW:hover {
     width: 250px;
 }
 
-/*section.panels-3wFtMD {
-    opacity: 0%;
-    transition: all 500ms ease-in;
-}
-section.panels-3wFtMD:hover {
-    opacity: 100%;
-}
+/*uncomment the following section to hide unread badges*/
 
 /*div.sidebar-1tnWFu div.unread-36eUEm {
     background-color: transparent !important;
     color: transparent !important;
     transition: background-color 0.4s linear;
 }
-/*div.sidebar-1tnWFu:hover div.unread-36eUEm {
+div.sidebar-1tnWFu:hover div.unread-36eUEm {
     background-color: var(--unread-badge) !important;
     color: var(--unread-badge) !important;
 }*/
