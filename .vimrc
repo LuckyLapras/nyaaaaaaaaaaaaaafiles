@@ -18,7 +18,9 @@ if v:progname =~? "evim"
 endif
 
 " Get the defaults that most users want.
-source $VIMRUNTIME/defaults.vim
+if !has('nvim')
+    source $VIMRUNTIME/defaults.vim
+endif
 
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
@@ -52,6 +54,7 @@ if has('syntax') && has('eval')
   packadd! matchit
 endif
 
+:colorscheme default
 :set number
 :set t_Co=16
 let g:airline_powerline_fonts = 1
@@ -64,8 +67,9 @@ let g:airline_theme='base16_lily'
 
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 Plug 'elkowar/yuck.vim'
+Plug 'eraserhd/parinfer-rust'
 call plug#end()
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-
+execute pathogen#infect()

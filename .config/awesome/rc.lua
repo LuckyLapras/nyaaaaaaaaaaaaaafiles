@@ -176,12 +176,12 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    -- awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
-    if s.index == 1 then
-        awful.tag({ "1", "2", "3", "4", "5" }, s, awful.layout.layouts[1])
-    else
-        awful.tag({ "6", "7", "8", "9", "0" }, s, awful.layout.layouts[1])
-    end
+     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" }, s, awful.layout.layouts[1])
+    --if s.index == 1 then
+    --    awful.tag({ "1", "2", "3", "4", "5" }, s, awful.layout.layouts[1])
+    --else
+    --    awful.tag({ "6", "7", "8", "9", "0" }, s, awful.layout.layouts[1])
+    --end
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -256,11 +256,11 @@ awful.rules.rules = {
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen,
                      size_hints_honor = false,
                      -- this function is needed to round corners before entering fullscreen
-                     shape = function()
-                         return function(cr, w, h)
-                             gears.shape.rounded_rect(cr, w, h, 15)
-                         end
-                     end,
+                     --shape = function()
+                     --    return function(cr, w, h)
+                     --        gears.shape.rounded_rect(cr, w, h, 15)
+                     --    end
+                     --end,
      }
     },
 
@@ -271,6 +271,7 @@ awful.rules.rules = {
           "MEGAsync",
           "virt-manager",
           "scrcpy",
+          "eww.*",
         },
         -- Note that the name property shown in xprop might be set slightly after creation of the client
         -- and the name shown there might not match defined rules here.
@@ -291,16 +292,20 @@ awful.rules.rules = {
       properties = { screen = root.tags()[3].screen, tag = root.tags()[3].name } },
     { rule = { class = "photoshop.exe" },
       properties = { screen = root.tags()[7].screen, tag = root.tags()[7].name } },
-    { rule = { class = "Steam", class = "PCSX2" },
+    { rule = { class = "Steam", class = "PCSX2", class = "melonDS" },
       properties = { screen = root.tags()[9].screen, tag = root.tags()[9].name } },
     { rule = { class = "REAPER" },
       properties = { screen = root.tags()[8].screen, tag = root.tags()[8].name } },
     { rule = { class = "discord" },
       properties = { screen = root.tags()[1].screen, tag = root.tags()[1].name } },
+    { rule = { class = "Minecraft.*" },
+      properties = { screen = root.tags()[1].screen, tag = root.tags()[9].name } },
     { rule = { class = "feh" },
       properties = { border_width = 0, floating = true } },
     { rule = { class = "MEGAsync" },
       properties = { border_width = 0, x = 20, y = 20, shape = gears.shape.rect } },
+    { rule = { class = "eww.*" },
+      properties = { dockable = false, struts = {none} } },
 }
 -- }}}
 
@@ -311,9 +316,9 @@ require("signals")
 -- about a minute when hovering over the desktop á la "--no-startup-id"-less execs
 -- in i3 config
 autorun = true
-autorunApps = { "picom -b",
+autorunApps = { "phycom -b",
                 "fcitx5 &",
-                "discord-canary &",
+                "discocss &",
                 "kdeconnect-cli",
                 "megasync",
                 "/home/lily/.scripts/line-in-loopback.sh"

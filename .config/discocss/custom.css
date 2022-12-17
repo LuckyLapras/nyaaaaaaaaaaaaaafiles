@@ -1,0 +1,68 @@
+:root {
+    --font-primary: Comic Sans MS;
+    --font-display: Comic Sans MS;
+}
+
+nav[aria-label="Servers sidebar"] {
+    width: 12px;
+    transition: all 500ms ease-in;
+}
+nav[aria-label="Servers sidebar"]:hover {
+    width: 70px;
+}
+
+div.sidebar-1tnWFu {
+    width: 15px;
+    /*transition: width 0.4s;*/
+    transition: all 500ms ease-in;
+}
+div.sidebar-1tnWFu:hover {
+    width: 250px;
+}
+
+div.sidebar-1tnWFu>* {
+    opacity: 0%;
+    transition: inherit;
+}
+
+div.sidebar-1tnWFu:hover>* {
+    opacity: 100%;
+}
+
+div.container-2o3qEW {
+    width: 15px;
+    transition: all 500ms ease-in;
+}
+div.container-2o3qEW:hover {
+    width: 250px;
+}
+
+/*section.panels-3wFtMD {
+    opacity: 0%;
+    transition: all 500ms ease-in;
+}
+section.panels-3wFtMD:hover {
+    opacity: 100%;
+}
+
+/*div.sidebar-1tnWFu div.unread-36eUEm {
+    background-color: transparent !important;
+    color: transparent !important;
+    transition: background-color 0.4s linear;
+}
+/*div.sidebar-1tnWFu:hover div.unread-36eUEm {
+    background-color: var(--unread-badge) !important;
+    color: var(--unread-badge) !important;
+}*/
+
+rect[id$=-lower_badge_masks] {
+    display: none !important;
+}
+
+div[class^=lowerBadge] {
+    transform: translate(-37px, -12px) !important;
+    border-width: 4px !important;
+    border: solid var(--background-tertiary);
+    border-radius: 50% !important;
+    background-color: var(--background-tertiary);
+}

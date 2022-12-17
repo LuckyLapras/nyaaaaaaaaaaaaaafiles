@@ -19,6 +19,7 @@ function send_notification() {
 
     case $mute in
         *yes)       icon="$iconpath/299-volume-mute2-white.png"
+                    vol=MUTE
             ;;
     esac
     dunstify -a "changevolume" -r "9993" -h int:value:"$vol" -i "$icon" -t 1000 "Volume: $vol" "$sink"
@@ -40,10 +41,6 @@ case $1 in
     mute)
         pactl set-sink-mute @DEFAULT_SINK@ toggle
         mute=$(pactl get-sink-mute @DEFAULT_SINK@)
-        case $mute in
-            *yes) ;;
-            *no)  ;;
-        esac
         send_notification
         ;;
 esac

@@ -32,7 +32,12 @@ function workspaces() {
 function title() {
     title=$(xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) WM_NAME |
         sed -nr 's/.*= "(.*)"$/\1/p')
-    body="Current Window: $title"
+    if ! [[ "$title" == "Eww"* ]]
+    then
+        body="Current Window: $title"
+    else
+        exit 1
+    fi
     }
 
 function new_win() {
@@ -47,4 +52,4 @@ case $1 in
     *) title
 esac
 
-dunstify -t 1000 -r $NID "$ws_string" "$body"
+dunstify -a "workspaces" -t 1000 -r $NID "$ws_string" "$body"

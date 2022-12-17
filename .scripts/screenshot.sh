@@ -22,7 +22,9 @@ while getopts ":qaws" option; do
            notify
            exit;;
         s) flameshot gui -c -s -p $DIR/$FILENAME
-           notify
+           if [ -e $DIR/$FILENAME ]; then
+               notify
+           fi
            exit;;
     esac
 done

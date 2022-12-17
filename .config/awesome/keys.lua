@@ -125,6 +125,10 @@ globalkeys = gears.table.join(
                   awful.util.spawn_with_shell("$HOME/.config/polybar/shades/scripts/launcher.sh")
               end,
               {description = "open launcher", group = "launcher"}),
+    awful.key({ modkey }, "p", function()
+                  awful.util.spawn_with_shell("ewwkb open --toggle dashboard")
+              end,
+              {description = "open dashboard", group = "launcher"}),
 
     -- screenshots
     -- scripts_dir is defined in rc.lua
@@ -176,7 +180,7 @@ globalkeys = gears.table.join(
               {description = "grow vertical client", group = "client"}),
     -- i would like to figure out how to make clients equal again after resizing
     -- but i am dumb
-    awful.key({ modkey, "Mod1" }, "equal", function () treetile.arrange() end)
+    awful.key({ modkey, "Mod1" }, "equal", function () treetile.arrange(tag) end)
 )
 
 clientkeys = gears.table.join(

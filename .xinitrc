@@ -24,13 +24,16 @@ setxkbmap gb
 # i miss my scroll wheel
 xinput set-prop 'PixArt USB Optical Mouse' 'libinput Scroll Method Enabled' 0 0 1
 
+wms="    i3, hypr/Hypr, awesome, gnome, mutter"
+
 case $1 in
     i3) exec i3 ;;
-    hypr|Hypr)    exec Hypr ;;
+    hypr|Hypr)    exec hyprlily ;;
     awesome) exec awesome >/tmp/awesomelog 2>&1 ;;
     gnome) export XDG_SESSION_TYPE=x11
         GDK_BACKEND=x11
         exec gnome-session
         ;;
     mutter) exec mutter ;;
+        *) printf "Please choose one of\n$wms"
 esac

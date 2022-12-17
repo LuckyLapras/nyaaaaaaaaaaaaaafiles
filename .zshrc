@@ -57,18 +57,20 @@ alias config='/usr/bin/git --git-dir=/home/lily/.git/ --work-tree=/home/lily'
 alias wine32='WINEPREFIX=~/.wine32 wine'
 
 notes() { vim "/home/lily/.notes/$@"; }
+backup() { cp "$@" "$@.bak" }
 
 # ls
-alias ls='ls -h --color=auto'
+alias ls='ls -a --color=auto'
 alias ll='ls -alh --color=auto'
 alias ld='ls -dlh .* --color=auto'
+alias lf='ls -ApL --color=always | grep --color=always -v /'
 
 alias 3dsntr='sudo create_ap wlp6s0 enp7s0 3DSNTR NozoEli6969'
 
 case $TERM in
     st*)    precmd () {printf '\033];%s\a' "${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $2 }')"}
         ;;
-    xterm*) precmd () {printf "\e]0;${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $2 }')"}
+    xterm*) precmd () {printf "\e]0;${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $(NF-2) }' 2>/dev/null)"}
         ;;
 esac
 
