@@ -20,13 +20,14 @@ div.sidebar-1tnWFu:hover {
     width: 250px;
 }
 
-div.sidebar-1tnWFu>* {
-    opacity: 0%;
-    transition: inherit;
+div.sidebar-1tnWFu :is(section[class^=panels], div[class^=container]) {
+    opacity: 0% !important;
+    transition: inherit !important;
 }
 
-div.sidebar-1tnWFu:hover>* {
-    opacity: 100%;
+div.sidebar-1tnWFu:hover :is(section[class^=panels], div[class^=container]) {
+    opacity: 100% !important;
+    transition: all 500ms ease-in;
 }
 
 div.container-2o3qEW {
