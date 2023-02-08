@@ -64,6 +64,7 @@ let g:airline_theme='base16_lily'
 :set shiftwidth=4
 :set expandtab
 :set title
+:set clipboard=unnamed
 
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 Plug 'elkowar/yuck.vim'

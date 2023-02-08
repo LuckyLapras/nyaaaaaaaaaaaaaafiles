@@ -41,15 +41,15 @@ function title() {
     }
 
 function new_win() {
-    body="$1 opened on Workspace $2"
+    body="${@:2} opened on Workspace $1"
 }
 
 workspaces
 
 case $1 in
-    new_win) new_win $2 $3
+    new_win) new_win ${@:2}
         ;;
     *) title
 esac
 
-dunstify -a "workspaces" -t 1000 -r $NID "$ws_string" "$body"
+notify-send -a "workspaces.sh" -t 1000 -r $NID "$ws_string" "$body"

@@ -159,16 +159,28 @@ globalkeys = gears.table.join(
               end,
               {description = "toggle mute", group = "audio"}),
     awful.key({ modkey, "Shift" }, "a", function()
-                  awful.util.spawn_with_shell("pactl set-source-mute alsa_input.pci-0000_0a_00.3.analog-stereo toggle")
+                  awful.util.spawn_with_shell(scripts_dir .. "volume.sh line")
               end,
               {description = "toggle line in mute", group = "audio"}),
+    awful.key({ modkey, "Mod1" }, "a", function()
+                  awful.util.spawn_with_shell(scripts_dir .. "volume.sh pfw")
+              end,
+              {description = "toggle focused window mute", group = "audio"}),
     -- i've realised accessing megasync without a systray is kinda cumbersome
     -- maybe i can figure out some way of having a popup systray
     -- but for now this'll work
     awful.key({ modkey, "Shift" }, "s", function()
-                  awful.util.spawn("megasync")
+                  awful.util.spawn_with_shell("megasync")
               end,
               {description = "show megasync", group = "launcher"}),
+    awful.key({ modkey }, "period", function()
+                  awful.util.spawn("dunstctl history-pop", false)
+              end,
+              {description = "pop notif history", group = "awesome"}),
+    awful.key({ modkey }, "comma", function()
+                  awful.util.spawn("dunstctl close-all", false)
+              end,
+              {description = "pop notif history", group = "awesome"}),
     -- resizing windows maybe
     awful.key({ modkey, "Mod1" }, "Left", function () treetile.resize_horizontal(-0.01) end,
               {description = "shrink horizontal client", group = "client"}),
@@ -180,7 +192,7 @@ globalkeys = gears.table.join(
               {description = "grow vertical client", group = "client"}),
     -- i would like to figure out how to make clients equal again after resizing
     -- but i am dumb
-    awful.key({ modkey, "Mod1" }, "equal", function () treetile.arrange(tag) end)
+    awful.key({ modkey, "Mod1" }, "equal", function () treetile.arrange(awful.tag) end)
 )
 
 clientkeys = gears.table.join(

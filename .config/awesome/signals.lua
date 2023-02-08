@@ -21,13 +21,17 @@ client.connect_signal("manage", function (c)
         awful.placement.no_offscreen(c)
     end
 
-    -- this makes floating windows stay on top, i think.
-    if c.class ~= "PCSX2" then
-        -- i need to specify not pcsx2 here bc the window is really annoying in tiling layouts
-        if c.floating then
-            c.ontop = true
-        end
+    if c.floating then
+        c.ontop = true
     end
+
+    --    parent = c.transient_for
+    --    if parent then
+    --        tag = parent.first_tag
+    --        screen = parent.screen
+    --        c:move_to_tag(tag)
+    --        c:move_to_screen(screen)
+    --    end
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
@@ -141,3 +145,35 @@ end)
 tag.connect_signal("property::selected", function()
     awful.util.spawn_with_shell(scripts_dir .. "workspaces.sh")
 end)
+
+awesome.connect_signal('exit', function(reason_restart)
+   if not reason_restart then return end
+
+   local file = io.open('/tmp/awesomewm-last-selected-tags', 'w+')
+
+   for s in screen do
+      file:write(s.selected_tag.index, '\n')
+   end
+
+   file:close()
+end)
+
+awesome.connect_signal('startup', function()
+   local file = io.open('/tmp/awesomewm-last-selected-tags', 'r')
+   if not file then return end
+
+   local selected_tags = {}
+
+   for line in file:lines() do
+      table.insert(selected_tags, tonumber(line))
+   end
+
+   for s in screen do
+      local i = selected_tags[s.index]
+      local t = s.tags[i]
+      t:view_only()
+   end
+
+   file:close()
+end)
+

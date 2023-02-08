@@ -100,14 +100,14 @@
     separator_color = frame
 
     # Sort messages by urgency.
-    sort = yes
+    sort = false
 
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
     # Set to 0 to disable.
     # A client can set the 'transient' hint to bypass this. See the rules
     # section for how to disable this if necessary
-    # idle_threshold = 120
+    idle_threshold = 120
 
     ### Text ###
 
@@ -151,7 +151,7 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "<b>%s</b>\n%b"
+    format = "<b>%s</b>\n%b\n<span font_style="italic" font_scale="subscript" baseline_shift="-15pt">%a</span>"
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
@@ -229,7 +229,7 @@
     # corners.
     # The radius will be automatically lowered if it exceeds half of the
     # notification height to avoid clipping text and/or icons.
-    corner_radius = 0
+    corner_radius = 15
 
     # Ignore the dbus closeNotification message.
     # Useful to enforce the timeout set by dunst configuration. Without this

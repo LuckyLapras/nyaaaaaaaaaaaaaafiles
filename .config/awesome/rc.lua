@@ -315,16 +315,31 @@ require("signals")
 -- without the spawn_with_shell, this section causes a waiting cursor for
 -- about a minute when hovering over the desktop á la "--no-startup-id"-less execs
 -- in i3 config
-autorun = true
+local is_restart
+do
+    local restart_detected
+    is_restart = function()
+        if restart_detected ~= nil then
+            return restart_detected
+        end
+
+        awesome.register_xproperty("awesome_restart", "boolean")
+        restart_detected = awesome.get_xproperty("awesome_restart") ~= nil
+        awesome.set_xproperty("awesome_restart", true)
+        return restart_detected
+    end
+end
+
 autorunApps = { "phycom -b",
-                "fcitx5 &",
-                "discocss &",
+                "discocss",
+                "fcitx5",
                 "kdeconnect-cli",
                 "megasync",
-                "/home/lily/.scripts/line-in-loopback.sh"
+                "redshift"
 }
-if autorun then
+if not is_restart() then
     for app = 1, #autorunApps do
         awful.util.spawn_with_shell(autorunApps[app])
     end
 end
+

@@ -58,6 +58,7 @@ alias wine32='WINEPREFIX=~/.wine32 wine'
 
 notes() { vim "/home/lily/.notes/$@"; }
 backup() { cp "$@" "$@.bak" }
+dunzip() { unzip "$1" -d "${1%.zip}" }
 
 # ls
 alias ls='ls -a --color=auto'
@@ -67,12 +68,38 @@ alias lf='ls -ApL --color=always | grep --color=always -v /'
 
 alias 3dsntr='sudo create_ap wlp6s0 enp7s0 3DSNTR NozoEli6969'
 
-case $TERM in
-    st*)    precmd () {printf '\033];%s\a' "${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $2 }')"}
-        ;;
-    xterm*) precmd () {printf "\e]0;${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $(NF-2) }' 2>/dev/null)"}
-        ;;
-esac
+preexec() {
+    cmd_start_date=$(date +%s)
+    cmd_name=$1
+}
+
+precmd() {
+    cmd_status=$?
+    case $TERM in
+        st*)    printf '\033];%s\a' "${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $2 }')"
+            ;;
+        xterm*) printf "\e]0;${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $(NF-2) }' 2>/dev/null)"
+            ;;
+    esac
+
+    if ! [[ -z $cmd_start_date ]] && [[ -n $DISPLAY ]];
+    then
+        case $cmd_name in
+            vim*|bash*|mpv*|discpipe*|man*) :
+                ;;
+            *)  cmd_end_date=$(date +%s)
+                cmd_elapsed=$(($cmd_end_date - $cmd_start_date))
+                elapsed_read=$(date -u -d @${cmd_elapsed} +"%T")
+                cmd_notify_thresh=60
+
+                if [[ $cmd_elapsed -gt $cmd_notify_thresh ]];
+                then
+                    notify-send -a 'zsh' -u critical 'Command finished!' "\"$cmd_name\" has finished executing after $elapsed_read with status $cmd_status."
+                fi
+        esac
+    fi
+}
+
 
 setopt CORRECT
 

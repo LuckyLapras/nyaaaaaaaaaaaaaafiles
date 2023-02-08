@@ -22,7 +22,52 @@ function send_notification() {
                     vol=MUTE
             ;;
     esac
-    dunstify -a "changevolume" -r "9993" -h int:value:"$vol" -i "$icon" -t 1000 "Volume: $vol" "$sink"
+    notify-send -a "volume.sh" -r "9993" -h int:value:"$vol" -i "$icon" -t 1000 "Volume: $vol" "$sink"
+}
+
+function send_line_notif() {
+    iconpath="$HOME/.local/share/icons/volume"
+    mute=$(pactl get-source-mute $line)
+
+    case $mute in
+        *no)        icon="$iconpath/295-volume-high-white.png"
+                    body="Line-in unmuted"
+            ;;
+        *yes)       icon="$iconpath/299-volume-mute2-white.png"
+                    body="Line-in muted"
+            ;;
+    esac
+    notify-send -a "volume.sh" -r "9994" -i "$icon" -t 1000 "$body"
+}
+
+function mute_pfw() {
+    pid=$(xdotool getwindowfocus getwindowpid)
+    index=$(pactl list sink-inputs | awk '
+        /^Sink Input #[0-9]+$/ {
+            sub("#", "", $3)
+            x=$3
+        }
+        /application.process.id = "'$pid'"/ {
+            print x
+        }')
+    pactl set-sink-input-mute $index toggle
+    mute_pfw_notif $index $pid
+}
+
+function mute_pfw_notif() {
+    mute=$(pactl -f json list sink-inputs | jq -r ".[] | select(.index == $1).mute")
+    iconpath="$HOME/.local/share/icons/volume"
+    title=$(xtitle $(pfw))
+
+    case $mute in
+        *false)     icon="$iconpath/295-volume-high-white.png"
+                    body="$title unmuted"
+            ;;
+        *true)      icon="$iconpath/299-volume-mute2-white.png"
+                    body="$title muted"
+            ;;
+    esac
+    notify-send -a "volume.sh" -r "9995" -i "$icon" -t 1000 "$body"
 }
 
 case $1 in
@@ -40,7 +85,16 @@ case $1 in
         ;;
     mute)
         pactl set-sink-mute @DEFAULT_SINK@ toggle
-        mute=$(pactl get-sink-mute @DEFAULT_SINK@)
         send_notification
         ;;
+    line)
+        line="alsa_input.pci-0000_0a_00.3.analog-stereo"
+        pactl set-source-mute $line toggle
+        send_line_notif $line
+        ;;
+    pfw)
+        mute_pfw
+        ;;
+    *)
+        send_notification
 esac

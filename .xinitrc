@@ -35,5 +35,6 @@ case $1 in
         exec gnome-session
         ;;
     mutter) exec mutter ;;
+    bspwm) exec bspwm ;;
         *) printf "Please choose one of\n$wms"
 esac
