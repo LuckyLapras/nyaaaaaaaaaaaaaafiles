@@ -6,7 +6,7 @@ mkdir -p $DIR
 export MESSAGE="File saved to $DIR/$FILENAME"
 
 notify() {
-    notify-send -i $DIR/$FILENAME "Screenshot taken!" "$MESSAGE" -a Screenshots
+    notify-send -i $DIR/$FILENAME "Screenshot taken!" "$MESSAGE" -a 'screenshot.sh'
 }
 
 while getopts ":qaws" option; do

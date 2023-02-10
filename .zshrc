@@ -75,28 +75,31 @@ preexec() {
 
 precmd() {
     cmd_status=$?
-    case $TERM in
-        st*)    printf '\033];%s\a' "${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $2 }')"
-            ;;
-        xterm*) printf "\e]0;${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $(NF-2) }' 2>/dev/null)"
-            ;;
-    esac
-
-    if ! [[ -z $cmd_start_date ]] && [[ -n $DISPLAY ]];
+    if [[ -n $DISPLAY ]];
     then
-        case $cmd_name in
-            vim*|bash*|mpv*|discpipe*|man*) :
+        case $TERM in
+            st*)    printf '\033];%s\a' "${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $2 }')"
                 ;;
-            *)  cmd_end_date=$(date +%s)
-                cmd_elapsed=$(($cmd_end_date - $cmd_start_date))
-                elapsed_read=$(date -u -d @${cmd_elapsed} +"%T")
-                cmd_notify_thresh=60
-
-                if [[ $cmd_elapsed -gt $cmd_notify_thresh ]];
-                then
-                    notify-send -a 'zsh' -u critical 'Command finished!' "\"$cmd_name\" has finished executing after $elapsed_read with status $cmd_status."
-                fi
+            xterm*) printf "\e]0;${PWD/$HOME/~} - $(pstree -sA $$ | awk -F "---" '{ print $(NF-2) }' 2>/dev/null)"
+                ;;
         esac
+
+        if [[ -n $cmd_start_date ]];
+        then
+            case $cmd_name in
+                vim*|bash*|mpv*|discpipe*|man*|mpc-qt*) :
+                    ;;
+                *)  cmd_end_date=$(date +%s)
+                    cmd_elapsed=$(($cmd_end_date - $cmd_start_date))
+                    elapsed_read=$(date -u -d @${cmd_elapsed} +"%T")
+                    cmd_notify_thresh=60
+
+                    if [[ $cmd_elapsed -gt $cmd_notify_thresh ]];
+                    then
+                        notify-send -a 'zsh' -u critical 'Command finished!' "\"$cmd_name\" has finished executing after $elapsed_read with status $cmd_status."
+                    fi
+            esac
+        fi
     fi
 }
 
