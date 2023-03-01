@@ -18,7 +18,7 @@ screenshot coming soon this is far from finished
 - editor: [vim](https://www.vim.org/)
   - vim plugins: [vim-airline](https://github.com/vim-airline/vim-airline)
     - airline theme: a small modification of [base16\_vim](https://github.com/vim-airline/vim-airline/blob/master/autoload/airline/themes/dark.vim), edited such that replace mode doesn't suck
-- wallpaper: from [muse dash](http://cdn.peroperogames.com/art#gallery_4-69) (also subject to change)
+- wallpaper: from [muse dash](http://cdn.peroperogames.com/art#gallery_1-13) (also subject to change)
 - rofi themes: from [adi1090x's polybar themes](https://github.com/adi1090x/polybar-themes) (i used to use polybar)
 - font: [MesloLGS NF](https://github.com/romkatv/powerlevel10k#fonts)
 - dashboard: [AlecsFerra's eww fork](https://github.com/AlecsFerra/eww) (may try my hand at porting these changes to a more recent version of eww)
