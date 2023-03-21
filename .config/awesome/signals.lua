@@ -90,8 +90,10 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- make client square when entering fullscreen, return to rounded corners when leaving
 client.connect_signal("property::fullscreen", function(c)
     if c.fullscreen then
+        awful.util.spawn_with_shell("unclutter -b")
         c:set_shape(gears.shape.rect)
     else
+        awful.util.spawn_with_shell("killall unclutter")
         c:set_shape(function(cr, width, height)
             gears.shape.rounded_rect(cr, width, height, 15)
         end)

@@ -58,7 +58,14 @@ alias wine32='WINEPREFIX=~/.wine32 wine'
 
 notes() { vim "/home/lily/.notes/$@"; }
 backup() { cp "$@" "$@.bak" }
-dunzip() { unzip "$1" -d "${1%.zip}" }
+dunzip() {
+    if unzip -l "$1" | grep '/' &> /dev/null
+    then
+        unzip "$1"
+    else
+        unzip "$1" -d "${1%.zip}"
+    fi
+}
 
 # ls
 alias ls='ls -a --color=auto'
@@ -71,6 +78,10 @@ alias 3dsntr='sudo create_ap wlp6s0 enp7s0 3DSNTR NozoEli6969'
 preexec() {
     cmd_start_date=$(date +%s)
     cmd_name=$1
+    if [[ -n $DISPLAY ]];
+    then
+        org_win=$(xprop -root _NET_ACTIVE_WINDOW | awk '{print $5}')
+    fi
 }
 
 precmd() {
@@ -86,8 +97,9 @@ precmd() {
 
         if [[ -n $cmd_start_date ]];
         then
-            case $cmd_name in
-                vim*|bash*|mpv*|discpipe*|man*|mpc-qt*) :
+            cur_win=$(xprop -root _NET_ACTIVE_WINDOW | awk '{print $5}')
+            case $cur_win in
+                $org_win) :
                     ;;
                 *)  cmd_end_date=$(date +%s)
                     cmd_elapsed=$(($cmd_end_date - $cmd_start_date))
