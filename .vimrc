@@ -69,6 +69,7 @@ let g:airline_theme='base16_lily'
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 Plug 'elkowar/yuck.vim'
 Plug 'eraserhd/parinfer-rust'
+Plug 'psf/black', { 'branch': 'stable' }
 call plug#end()
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
