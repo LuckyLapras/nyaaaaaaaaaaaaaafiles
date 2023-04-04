@@ -59,7 +59,7 @@ alias wine32='WINEPREFIX=~/.wine32 wine'
 notes() { vim "/home/lily/.notes/$@"; }
 backup() { cp "$@" "$@.bak" }
 dunzip() {
-    if unzip -l "$1" | grep '/' &> /dev/null
+    if unzip -l "$1" | sed -n 5p | grep '/' &> /dev/null
     then
         unzip "$1"
     else

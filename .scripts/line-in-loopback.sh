@@ -7,6 +7,6 @@ export LC_ALL=C
 #pactl set-default-sink desktop_audio
 #pactl load-module module-loopback source=desktop_audio.monitor sink=alsa_output.pci-0000_0a_00.3.analog-stereo
 #pactl load-module module-loopback source=chromium.monitor sink=alsa_output.pci-0000_0a_00.3.analog-stereo
-pactl load-module module-loopback source=alsa_input.pci-0000_0a_00.3.analog-stereo sink=alsa_output.pci-0000_0a_00.3.analog-stereo latency=5msec
+pactl load-module module-loopback source=alsa_input.pci-0000_0a_00.3.analog-stereo sink=alsa_output.pci-0000_0a_00.3.analog-stereo latency=0msec
 #pactl load-module module-null-sink sink_name=cum
 #pactl load-module module-loopback source=cum.monitor sink=alsa_output.pci-0000_0a_00.3.analog-stereo
