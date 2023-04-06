@@ -17,7 +17,7 @@ compinit
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export PATH=/home/lily/.local/bin:$PATH
+export PATH=$HOME/.local/usr/bin:$HOME/.local/bin:$PATH
 
 # Aliases
 alias dir='dir --color=auto'
@@ -80,7 +80,7 @@ preexec() {
     cmd_name=$1
     if [[ -n $DISPLAY ]];
     then
-        org_win=$(xprop -root _NET_ACTIVE_WINDOW | awk '{print $5}')
+        org_ws=$(wmctrl -d | awk '{ if ($2 == "*") print $9}')
     fi
 }
 
@@ -97,20 +97,19 @@ precmd() {
 
         if [[ -n $cmd_start_date ]];
         then
-            cur_win=$(xprop -root _NET_ACTIVE_WINDOW | awk '{print $5}')
-            case $cur_win in
-                $org_win) :
-                    ;;
-                *)  cmd_end_date=$(date +%s)
-                    cmd_elapsed=$(($cmd_end_date - $cmd_start_date))
-                    elapsed_read=$(date -u -d @${cmd_elapsed} +"%T")
-                    cmd_notify_thresh=60
+            cur_ws=$(wmctrl -d | awk '{ if ($2 == "*") print $9}')
+            if [[ "$org_ws" != "$cur_ws" ]];
+            then
+                cmd_end_date=$(date +%s)
+                cmd_elapsed=$(($cmd_end_date - $cmd_start_date))
+                elapsed_read=$(date -u -d @${cmd_elapsed} +"%T")
+                cmd_notify_thresh=60
 
-                    if [[ $cmd_elapsed -gt $cmd_notify_thresh ]];
-                    then
-                        notify-send -a 'zsh' -u critical 'Command finished!' "\"$cmd_name\" has finished executing after $elapsed_read with status $cmd_status."
-                    fi
-            esac
+                if [[ $cmd_elapsed -gt $cmd_notify_thresh ]];
+                then
+                    notify-send -a 'zsh' -u critical 'Command finished!' "\"$cmd_name\" has finished executing after $elapsed_read with status $cmd_status on workspace \"$org_ws\"."
+                fi
+            fi
         fi
     fi
 }
